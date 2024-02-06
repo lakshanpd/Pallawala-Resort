@@ -1,0 +1,52 @@
+.map {
+    margin-left: auto;
+    width: 350px;
+    margin-top: 30px;
+}
+
+.google-map-button {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.location-content {
+    display: flex;
+    width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    margin-bottom: 150px;
+}
+
+.location-description {
+
+    font-family: "Times New Roman", Times, serif;
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    color: rgb(129, 128, 128);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 26px;
+    font-weight: 550;
+    
+  }
+  
+  .divider::before, .divider::after {
+    flex: 1;
+    content: '';
+    padding: 0.8px;
+    background-color: rgb(209, 209, 209);
+    margin: 5px;
+  }
+
+  .location-description-container {
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+

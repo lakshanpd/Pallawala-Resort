@@ -1,0 +1,96 @@
+{
+  "Cottage1": [
+    {
+      "src": "/Cottage1/c11.jpg",
+      "alt": "Image 1 for carousel"
+    },
+    {
+      "src": "/Cottage1/c12.jpg",
+      "alt": "Image 2 for carousel"
+    },
+    {
+      "src": "/Cottage1/c13.jpg",
+      "alt": "Image 3 for carousel"
+    },
+    {
+      "src": "/Cottage1/c12.jpg",
+      "alt": "Image 3 for carousel"
+    }
+  ],
+
+  "Cottage2": [
+    {
+      "src": "/Cottage2/c21.jpg",
+      "alt": "Image 1 for carousel"
+    },
+    {
+      "src": "/Cottage2/c22.jpeg",
+      "alt": "Image 2 for carousel"
+    },
+    {
+      "src": "/Cottage2/c23.jpg",
+      "alt": "Image 3 for carousel"
+    }
+  ],
+
+  "Cottage3": [
+    {
+      "src": "/Cottage3/c31.jpeg",
+      "alt": "Image 1 for carousel"
+    },
+    {
+      "src": "/Cottage3/c32.jpg",
+      "alt": "Image 2 for carousel"
+    },
+    {
+      "src": "/Cottage3/c33.jpg",
+      "alt": "Image 3 for carousel"
+    }
+  ],
+
+  "Cottage4": [
+    {
+      "src": "/Cottage4/c41.jpeg",
+      "alt": "Image 1 for carousel"
+    },
+    {
+      "src": "/Cottage4/c42.jpg",
+      "alt": "Image 2 for carousel"
+    },
+    {
+      "src": "/Cottage4/c43.jpg",
+      "alt": "Image 3 for carousel"
+    }
+  ],
+
+  "Cottage5": [
+    {
+      "src": "/Cottage5/c51.jpg",
+      "alt": "Image 1 for carousel"
+    },
+    {
+      "src": "/Cottage5/c52.jpeg",
+      "alt": "Image 2 for carousel"
+    },
+    {
+      "src": "/Cottage5/c53.jpg",
+      "alt": "Image 3 for carousel"
+    }
+  ],
+
+  "Cottage6": [
+    {
+      "src": "/Cottage6/c61.jpg",
+      "alt": "Image 1 for carousel"
+    },
+    {
+      "src": "/Cottage6/c62.jpg",
+      "alt": "Image 2 for carousel"
+    },
+    {
+      "src": "/Cottage6/c63.jpg",
+      "alt": "Image 3 for carousel"
+    }
+  ]
+}
+

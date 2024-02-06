@@ -1,0 +1,28 @@
+.slider-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 450px;
+}
+
+.myArrow {
+  position: absolute;
+  z-index: 2;
+  color: black;
+}
+
+.myArrow:hover {
+  color: rgb(101, 95, 95);
+}
+
+.left-arrow {
+  left: 1rem;
+}
+
+.right-arrow {
+  right: 1rem;
+}
+
+

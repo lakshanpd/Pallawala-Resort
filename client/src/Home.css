@@ -1,0 +1,33 @@
+
+  .resort-desc {
+    max-width: 800px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+
+  h1 {
+    color: gray;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+  }
+
+  p {
+    line-height: 1.5;
+    font-family: "Times New Roman", Times, serif;
+    color: #333;
+    font-size: 20px;
+  }
+
+  .highlight {
+    font-weight: bold;
+    color: black;
+  }
+
+  a {
+    color: #4CAF50;
+    text-decoration: none;
+  }
+

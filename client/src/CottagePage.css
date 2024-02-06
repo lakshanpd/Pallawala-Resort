@@ -1,0 +1,21 @@
+.carousel-component {
+    margin-right: auto; /* Adjust as needed */
+    margin-left: auto;
+  }
+  
+  .description-component {
+    margin-right: auto; /* Adjust as needed */
+    margin-left: auto;
+    margin-top: 20px;
+
+  }
+  
+.inline {
+    display: flex;
+    align-items: flex-start; /* Adjust as needed */
+    /* background-color: aqua; */
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 100px;
+  }
