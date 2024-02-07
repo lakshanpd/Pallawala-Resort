@@ -6,7 +6,7 @@ import FlipCard from './FlipCard';
 
 function MyImageList() {
 
-  const [cottagePrices, setCottagePrices] = useState([{}])
+  const [cottagePrices, setCottagePrices] = useState([{ Price : 500}])
 
   useEffect(() => {
     const fetchData = async () => {
