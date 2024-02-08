@@ -1,6 +1,8 @@
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
+const schedule = require("node-schedule");
+
 const db = require("./database");
 require("dotenv").config();
 const app = express();
@@ -8,8 +10,11 @@ const PORT = 3001;
 
 // Routerrs -----------
 const adminRouter = require("./admin/routers/admin");
+const authRouter = require("./admin/routers/auth");
+const { getAllAdmins } = require("./admin/service/admin");
 
 app.use(cors());
+app.use(express.json());
 
 db.getConnection()
   .then((connection) => {
@@ -29,6 +34,17 @@ app.get("/users", (req, res) => {
 });
 
 app.use(adminRouter);
+app.use(authRouter);
+
+// Add Chron Job  --------------------------------
+const cronExpression = "*/5 * * * *"; // Runs every 5 minutes
+
+// Create a scheduled event
+const job = schedule.scheduleJob(cronExpression, function () {
+  console.log("Scheduled event executed at:", new Date());
+  // Add your code to be executed at the specified time
+});
+// --------------------------------------------------
 
 app.get("/api/description", (req, res) => {
   db.query(
@@ -97,6 +113,13 @@ app.get("/api/cottage/cottage_prices", (req, res) => {
     return res.json(data);
   });
 });
+
+// Testing -----------------------------
+// getAllAdmins().then((result) => {
+//   console.log(result);
+// });
+
+//End Testing --------------------------
 
 app.listen(PORT, () => {
   console.log("App is running on port ", PORT);

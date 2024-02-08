@@ -1,4 +1,7 @@
 const db = require("../../database");
+const bcrypt = require("bcrypt");
+
+const saltRounds = 10;
 
 async function hashPassword(password) {
   try {
@@ -32,4 +35,38 @@ async function registerAdmin(username, email, password) {
   }
 }
 
-module.exports = { registerAdmin };
+async function loginAdmin(username, password) {
+  try {
+    const query = "SELECT password FROM admin WHERE username = ?";
+    const result = await db.query(query, [username]);
+    if (result[0][0]) {
+      console.log("result[0][0]:", result[0][0]);
+      const hashedPassword = result[0][0].password;
+      const match = await verifyPassword(password, hashedPassword);
+      if (match) {
+        return {
+          sucess: true,
+          message: "Login Sucessfull",
+        };
+      } else {
+        return { success: false, message: "Invalid password" };
+      }
+    }
+  } catch (error) {
+    console.log("Error in loginAdmin:", error);
+    throw error;
+  }
+}
+
+async function getAllAdmins() {
+  try {
+    const query = "SELECT * FROM admin";
+    const result = await db.query(query);
+    return result[0];
+  } catch (error) {
+    console.log("Error in getAllAdmins:", error);
+    throw error;
+  }
+}
+
+module.exports = { registerAdmin, loginAdmin, getAllAdmins };
