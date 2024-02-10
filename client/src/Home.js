@@ -1,18 +1,19 @@
 import React from 'react';
-import ImageSlider from './Components/Slider';
 import MyImageList from './Components/MyImageList';
 import Contacts from './Components/Contacts';
-import MyNavBar from './Components/MyNavBar';
 import Slider from './Components/Slider';
 import './Home.css'
 import Footer from './Components/Footer';
+import NavBar from './Components/NavBar';
 
 function Home() {
   return (
     <div>
-
       <Contacts/>
-      <MyNavBar/>
+      <div className='home-nav'>
+        <NavBar/>
+      </div>
+      
       <Slider/>
       <div className='resort-desc'>
         <h1>Welcome to Our Resort</h1>
@@ -27,8 +28,6 @@ function Home() {
     </div>
   );
 }
-
-
 
 export default Home;
 

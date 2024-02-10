@@ -15,6 +15,7 @@ import GoogleMapButton from './Components/GoogleMapButton';
 import MapPage from './MapPage';
 import CottageImage from './Components/CottageImage';
 import FlipCard from './Components/FlipCard';
+import NavBar from './Components/NavBar';
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
           <Route path='/reviews' element={<ReviewPage/>} />
           <Route path="/test2" element={<GoogleMapButton/>} />
           <Route path="/location" element={<MapPage/>} />
+          <Route path="/testing" element={<NavBar/>} />
+
           
 
           {/* Add more routes as needed */}

@@ -6,12 +6,13 @@ import Map from './Components/Map';
 import GoogleMapButton from './Components/GoogleMapButton';
 import './MapPage.css'
 import Footer from './Components/Footer';
+import NavBar from './Components/NavBar';
 
 function MapPage() {
   return (
     <div>
       <Contacts/>
-      <MyNavBar/>
+      <NavBar/>
       <Slider/>
 
     <div className='location-content'>

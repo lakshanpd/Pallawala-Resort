@@ -1,15 +1,15 @@
 import React from 'react'
 import Contacts from './Components/Contacts'
-import MyNavBar from './Components/MyNavBar';
 import OneReview from './Components/OneReview';
 import Footer from './Components/Footer';
 import Slider from './Components/Slider';
+import NavBar from './Components/NavBar';
 
 function ReviewPage() {
   return (
     <div>
       <Contacts/>
-      <MyNavBar/>
+      <NavBar/>
       <Slider/>
       <OneReview/>
       <Footer/>
