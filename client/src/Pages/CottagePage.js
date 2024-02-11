@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import data from './data/carouselData.json';
-import { Carousel } from './Components/Carousel';
-import Contacts from './Components/Contacts';
-import Slider from './Components/Slider';
-import Description from './Components/Description';
+import data from '../data/carouselData.json';
+import { Carousel } from '../Components/Carousel';
+import Contacts from '../Components/Contacts';
+import NavBar from '../Components/NavBar';
+import Slider from '../Components/Slider';
+import Description from '../Components/Description';
+import OtherImageList from '../Components/OtherImageList';
+import Footer from '../Components/Footer';
 import './CottagePage.css';
-import OtherImageList from './Components/OtherImageList';
-import Footer from './Components/Footer';
-import NavBar from './Components/NavBar';
 
 const CottagePage = () => {
   // Get the 'cottageKey' parameter from the URL

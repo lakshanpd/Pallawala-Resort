@@ -1,10 +1,10 @@
 import React from 'react';
-import MyImageList from './Components/MyImageList';
-import Contacts from './Components/Contacts';
-import Slider from './Components/Slider';
+import Contacts from '../Components/Contacts';
+import NavBar from '../Components/NavBar';
+import Slider from '../Components/Slider';
+import MyImageList from '../Components/MyImageList';
+import Footer from '../Components/Footer';
 import './Home.css'
-import Footer from './Components/Footer';
-import NavBar from './Components/NavBar';
 
 function Home() {
   return (
