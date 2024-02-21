@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-
 const db = require('./db');
+
 
 // Define routes
 router.get('/', (req, res) => {

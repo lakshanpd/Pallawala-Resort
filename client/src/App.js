@@ -8,6 +8,7 @@ import MapPage from './Pages/MapPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'leaflet/dist/leaflet.css';
 import './App.css';
+import Accordion from './Components/Accordion';
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
           <Route path='/navigate' element={<NavigationButton/>} />
           <Route path='/reviews' element={<ReviewPage/>} />
           <Route path="/location" element={<MapPage/>} />
-
+          <Route path="/test" element={<Accordion/>} />
+  
         </Routes>
       </Router>
     </>

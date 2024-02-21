@@ -3,10 +3,16 @@ import './NavBar.css';
 import NavBarBtn from './NavBarBtn';
 import RatingsBtn from './RatingsBtn';
 import { useState, useEffect } from 'react';
+import NavResBtn from './NavResBtn';
+import Accordion from './Accordion';
 
 function NavBar() {
 
   const [isSticky, setIsSticky] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [clicked, setClicked] = useState(false);
+
+  const toggleClicked = () => clicked ? setClicked(false) : setClicked(true)
 
   useEffect(() => {
 
@@ -24,6 +30,18 @@ function NavBar() {
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -48,16 +66,24 @@ function NavBar() {
         { text: 'Book your stay', link: '/item' }
     ];
   return (
-    <div className={isSticky ? "navigator-container sticky" : "navigator-container"}>
-        <img className='logo' src="https://www.chateaudefeuilles.com/images/chateau_de_feuilles-logo3.svg" alt="SVG Image"/>
+    <div>
+      <div className={isSticky ? "navigator-container sticky" : "navigator-container"}>
+          <img className='logo' src="https://www.chateaudefeuilles.com/images/chateau_de_feuilles-logo3.svg" alt="SVG Image"/>
 
-      <div className='drop-downs'>
-        <NavBarBtn buttonText={button1Text} listItems={button1Items} />
-        <NavBarBtn buttonText={button2Text} listItems={button2Items} />
-        <NavBarBtn buttonText={button3Text} listItems={button3Items} />
-        <RatingsBtn/>
+        {(windowWidth > 1000) ?       
+        <div className='drop-downs'>
+          <NavBarBtn buttonText={button1Text} listItems={button1Items} />
+          <NavBarBtn buttonText={button2Text} listItems={button2Items} />
+          <NavBarBtn buttonText={button3Text} listItems={button3Items} />
+          <RatingsBtn/>
+        </div>
+        : <div className='navbar-res-btn' onClick={toggleClicked}><NavResBtn/></div>}   
+
       </div>
+      {(windowWidth > 1000) ? null : (clicked ? <div className='new'><Accordion/></div> : null)}
+      
     </div>
+
   );
 }
 

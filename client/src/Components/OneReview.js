@@ -35,7 +35,7 @@ function OneReview() {
 
     // Render the component only when both reviewContent and reviewCustomer have data
     if (reviewContent.length === 0 || reviewCustomer.length === 0 || reviewRate.length === 0) {
-        return null; // or render a loading state
+        return null;
       }
 
   const dataArray = [/* Your data array here */];
@@ -52,7 +52,7 @@ if ((reviewContent.length === reviewCustomer.length) && (reviewRate.length === r
             <div className='customer-pic'> <VscAccount size={60}/> </div>
 
             <div className='name-star-box'>
-              <div className='customer-name'>{reviewCustomer[index].first_name + ' ' + reviewCustomer[index].last_name}</div>
+              <div className='customer-name'>{reviewCustomer[index].FirstName + ' ' + reviewCustomer[index].LastName}</div>
               <div className='review-star'> <RatingStars rate={reviewRate[index].Rating}></RatingStars></div>
             </div>
 
