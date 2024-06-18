@@ -1,0 +1,26 @@
+.booking-description {
+  margin-left: 10%;
+}
+
+.booking-description > h3 {
+  color: rgb(76, 75, 75);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.booking-description > p {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  color: rgb(75, 73, 73);
+}
+
+.booking-policy-link {
+  text-decoration: none;
+  color: rgb(116, 192, 239);
+  font-size: 14px;
+}
+
+.booking-policy-link:hover {
+  color: rgb(26, 107, 157);
+}
