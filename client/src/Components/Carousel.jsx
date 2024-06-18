@@ -15,7 +15,7 @@ export const Carousel = ({ data }) => {
 
   return (
     <div className="carousel">
-      <BsArrowLeftCircleFill onClick={prevSlide} className="arrow arrow-left" />
+      <BsArrowLeftCircleFill onClick={prevSlide} className="c-arrow c-arrow-left" />
       {data.map((item, idx) => {
         return (
           <img
@@ -28,7 +28,7 @@ export const Carousel = ({ data }) => {
       })}
       <BsArrowRightCircleFill
         onClick={nextSlide}
-        className="arrow arrow-right"
+        className="c-arrow c-arrow-right"
       />
       <span className="indicators">
         {data.map((_, idx) => {

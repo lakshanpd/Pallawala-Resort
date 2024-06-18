@@ -1,0 +1,46 @@
+.panel {
+    width: 100%;
+    padding-left: 0px;
+    font-size: 17px;
+    color: rgb(103, 101, 101);
+    position: absolute;
+    z-index: 999;
+    background-color: white;
+}
+
+.panel div {
+    width: 100%;
+    
+}
+
+.accordion{
+    padding-left: 10px;
+    height: 50px;
+    transition: 0.4s;
+    display: flex;
+    align-items: center;
+    font-family: "Times New Roman", Times, serif;
+
+}
+
+
+.panel_content {
+padding-left: 0%;
+}
+
+.panel_content div {
+    padding-left: 0px;
+}
+
+.panel_content div li{
+    padding-left: 40px;
+    font-family: "Times New Roman", Times, serif;
+}
+
+.accordion:hover {
+    background-color: rgb(214, 211, 211);
+    width: 100%;
+}
+
+
+

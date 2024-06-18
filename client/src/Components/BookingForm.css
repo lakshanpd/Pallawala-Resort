@@ -1,0 +1,101 @@
+.booking-form {
+  margin-left: 10%;
+  margin-right: 10%;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: rgb(103, 102, 102);
+  font-size: 14px;
+}
+
+.grid-item-1 {
+  grid-area: fname;
+}
+.grid-item-2 {
+  grid-area: lname;
+}
+.grid-item-3 {
+  grid-area: email;
+}
+.grid-item-4 {
+  grid-area: nic;
+}
+.grid-item-5 {
+  grid-area: no1;
+}
+.grid-item-6 {
+  grid-area: no2;
+}
+.grid-item-7 {
+  grid-area: checkin;
+}
+.grid-item-8 {
+  grid-area: checkout;
+}
+
+.grid-container-form {
+  display: grid;
+  grid-template-areas:
+    "fname lname no1 no2"
+    "email email nic nic";
+  row-gap: 15px;
+  column-gap: 25px;
+}
+
+.booking-form h1 {
+  margin: auto;
+  color: rgb(129, 128, 128);
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-weight: 400;
+  padding-bottom: 20px;
+}
+
+.room-checkboxes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.row1 {
+  grid-row: 1;
+}
+.row2 {
+  grid-row: 2;
+}
+.row3 {
+  grid-row: 3;
+}
+.row4 {
+  grid-row: 4;
+}
+
+.col1 {
+  grid-column: 1;
+}
+.col2 {
+  grid-column: 2;
+}
+.col3 {
+  grid-column: 3;
+}
+
+#checkout,
+#checkin {
+  width: 300%;
+  border: 2px solid rgb(166, 159, 159);
+  border-radius: 4px;
+}
+
+.date-labels {
+  display: grid;
+  grid-template-areas: "checkin checkin checkout checkout";
+}
+
+.submission {
+  display: flex;
+}
+
+.input-field {
+  border: 2px solid rgb(166, 159, 159);
+  border-radius: 4px;
+}
