@@ -7,6 +7,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import './MyNavBar.css';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function OffcanvasExample() {
 
@@ -107,7 +108,7 @@ function OffcanvasExample() {
                     </NavDropdown>
                   </Nav>
 
-                    <Button variant="outline-success" className='drop-down-list'>Book Now</Button>
+                    <Button variant="outline-success" className='drop-down-list' as = {Link} to = '/booking'>Book Now</Button>
 
                 </Offcanvas.Body>
               </Navbar.Offcanvas>
