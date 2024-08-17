@@ -56,7 +56,7 @@ function BookingForm() {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:3001/submit_booking_form",
+        "http://127.0.0.1:3001/api/submit_booking_form",
         {
           method: "POST",
           headers: {
@@ -81,6 +81,8 @@ function BookingForm() {
       if (response.ok) {
         console.log("Success:", data.message); // Log success message from response
         setMessage(data.message);
+        setTimeout(1000);
+        setMessage("");
       } else {
         console.log("Error:", data.message); // Log error message from response
       }

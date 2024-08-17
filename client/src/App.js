@@ -10,6 +10,8 @@ import "leaflet/dist/leaflet.css";
 import "./App.css";
 import BookingForm from "./Components/BookingForm";
 import BookingPage from "./Pages/BookingPage";
+import AdminLogin from "./Admin/Auth/AdminLogin";
+import Dashboard from "./Admin/Dashboard/dashboard";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
           <Route path="/location" element={<MapPage />} />
           <Route path="/test" element={<BookingForm />} />
           <Route path="/reservation" element={<BookingPage />} />
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/admin-dashboard" element={<Dashboard />} />
         </Routes>
       </Router>
     </>
