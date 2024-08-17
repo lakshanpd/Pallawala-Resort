@@ -3,15 +3,11 @@ const router = express.Router();
 const db = require("./db");
 
 const util = require("util");
+const { error } = require("console");
 const dbQuery = util.promisify(db.query).bind(db);
 
-// Define routes
-router.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
 // Define a route that accepts a parameter
-router.get("/api/:cottageNumber", (req, res) => {
+router.get("/:cottageNumber", (req, res) => {
   // Retrieve the parameter from the URL
   const cottageNumber = req.params.cottageNumber;
 
@@ -25,21 +21,21 @@ router.get("/api/:cottageNumber", (req, res) => {
   );
 });
 
-router.get("/api/review/contents", (req, res) => {
+router.get("/review/contents", (req, res) => {
   db.query("SELECT Content FROM Review", (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
   });
 });
 
-router.get("/api/review/rating", (req, res) => {
+router.get("/review/rating", (req, res) => {
   db.query("SELECT Rating FROM Review", (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
   });
 });
 
-router.get("/api/review/customer_names", (req, res) => {
+router.get("/review/customer_names", (req, res) => {
   const sql_query = `SELECT FirstName, LastName FROM Customer
     RIGHT JOIN 
     (SELECT Booking.BookingRef, Booking.CustomerID FROM Booking
@@ -54,7 +50,7 @@ router.get("/api/review/customer_names", (req, res) => {
   });
 });
 
-router.get("/api/cottage/cottage_prices", (req, res) => {
+router.get("/cottage/cottage_prices", (req, res) => {
   const sql_query = `SELECT Price FROM Room WHERE IsCottage=True;`;
 
   db.query(sql_query, (err, data) => {
@@ -161,6 +157,44 @@ router.post("/submit_booking_form", async (req, res) => {
     console.error("Error executing SQL query:", err);
     res.status(500).json({ error: "Database error" });
   }
+});
+
+router.get("/admin/info", (req, res) => {
+  const sql_query = `SELECT * FROM admin;`;
+
+  db.query(sql_query, (err, data) => {
+    if (err) {
+      console.error("Query Error:", err); // Log the error in detail
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+    if (!data.length) {
+      console.warn("No admin data found"); // Log warning if no data
+      return res.status(404).json({ message: "No admin data found" });
+    }
+    res.json(data);
+  });
+});
+
+router.post("/admin/login", (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  const sql = `SELECT * FROM Admin`;
+  db.query(sql, (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].Email === email) {
+        if (data[i].Password === password) {
+          return res.status(200).json({ message: "Successfully logged in" });
+        }
+      }
+    }
+    return res.status(401).json({ error: "Wrong details" });
+  });
 });
 
 module.exports = router;
