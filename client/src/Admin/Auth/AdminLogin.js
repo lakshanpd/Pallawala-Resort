@@ -23,7 +23,7 @@ function AdminLogin() {
         console.log("frontend message");
         if (res.ok) {
           console.log("successful");
-          navigate("/admin-dashboard");
+          navigate("/admin-dashboard/request-handling");
         } else {
           console.log("not successful");
         }

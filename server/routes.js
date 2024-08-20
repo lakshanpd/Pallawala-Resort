@@ -197,4 +197,190 @@ router.post("/admin/login", (req, res) => {
   });
 });
 
+router.get("/admin/requests", (req, res) => {
+  const sql_query = `SELECT FirstName, LastName, NIC, Email, phonenumber, CheckIn, CheckOut, roomdetails.RoomID, roomdetails.BookingRef  
+                    FROM booking
+                    LEFT JOIN customer ON customer.CustomerID = booking.CustomerID
+                    LEFT JOIN PhoneNumber ON customer.CustomerID = phonenumber.CustomerID
+                    LEFT JOIN roomdetails ON roomdetails.BookingRef = booking.BookingRef
+                    WHERE booking.Confirmed IS NULL;`;
+
+  db.query(sql_query, (err, data) => {
+    if (err) {
+      console.error("Query Error:", err); // Log the error in detail
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+    if (!data.length) {
+      console.warn("No request data found"); // Log warning if no data
+      return res.status(404).json({ message: "No request data found" });
+    }
+    // res.json(data);
+    let temp = [];
+    let result = [];
+    for (let i = 0; i < data.length; i++) {
+      if (!temp.includes(data[i].NIC)) {
+        temp.push(data[i].NIC);
+        let obj = {
+          FirstName: data[i].FirstName,
+          LastName: data[i].LastName,
+          NIC: data[i].NIC,
+          Email: data[i].Email,
+          PhoneNumber: [data[i].phonenumber],
+          CheckIn: data[i].CheckIn,
+          CheckOut: data[i].CheckOut,
+          Rooms: [data[i].RoomID],
+          BookingRef: [data[i].BookingRef],
+        };
+        result.push(obj);
+      } else {
+        let index = temp.indexOf(data[i].NIC);
+        if (!result[index].PhoneNumber.includes(data[i].phonenumber)) {
+          result[index].PhoneNumber.push(data[i].phonenumber);
+        }
+        if (!result[index].Rooms.includes(data[i].RoomID)) {
+          result[index].Rooms.push(data[i].RoomID);
+        }
+      }
+    }
+    res.json(result);
+  });
+});
+
+router.post("/admin/handle-accept", (req, res) => {
+  const id = req.body.id;
+
+  const sql_query = `UPDATE booking SET Confirmed = 1 WHERE BookingRef = ?;`;
+
+  db.query(sql_query, [id], (err, data) => {
+    if (err) {
+      console.error("Query Error:", err); // Log the error in detail
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+    res.json({ message: "Booking accepted" });
+    console.log("Booking accepted ", id);
+  });
+});
+
+router.post("/admin/handle-reject", (req, res) => {
+  const id = req.body.id;
+
+  const sql_query = `UPDATE Booking SET Confirmed = 0 WHERE BookingRef = ?;`;
+
+  db.query(sql_query, [id], (err, data) => {
+    if (err) {
+      console.error("Query Error:", err); // Log the error in detail
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+    res.json({ message: "Booking rejected" });
+  });
+});
+
+router.get("/admin/room_prices", (req, res) => {
+  const sql = `SELECT RoomID, Price FROM room;`;
+
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+});
+
+router.post("/admin/change-price", (req, res) => {
+  const sql = `UPDATE room SET Price = ? WHERE RoomID = ?;`;
+
+  db.query(sql, [req.body.newPrice, req.body.roomID], (err, data) => {
+    if (err) {
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+});
+
+router.get("/admin/upcoming_bookings", (req, res) => {
+  const sql = `SELECT FirstName, LastName, NIC, Email, phonenumber, CheckIn, CheckOut, roomdetails.RoomID, roomdetails.BookingRef  
+FROM booking
+LEFT JOIN customer ON customer.CustomerID = booking.CustomerID
+LEFT JOIN PhoneNumber ON customer.CustomerID = phonenumber.CustomerID
+LEFT JOIN roomdetails ON roomdetails.BookingRef = booking.BookingRef
+WHERE booking.Confirmed = 1 AND booking.CheckIn > CURDATE();`;
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err);
+    }
+    // return res.json(data);
+    let temp = [];
+    let result = [];
+    for (let i = 0; i < data.length; i++) {
+      if (!temp.includes(data[i].NIC)) {
+        temp.push(data[i].NIC);
+        let obj = {
+          FirstName: data[i].FirstName,
+          LastName: data[i].LastName,
+          NIC: data[i].NIC,
+          Email: data[i].Email,
+          PhoneNumber: [data[i].phonenumber],
+          CheckIn: data[i].CheckIn,
+          CheckOut: data[i].CheckOut,
+          Rooms: [data[i].RoomID],
+          BookingRef: [data[i].BookingRef],
+        };
+        result.push(obj);
+      } else {
+        let index = temp.indexOf(data[i].NIC);
+        if (!result[index].PhoneNumber.includes(data[i].phonenumber)) {
+          result[index].PhoneNumber.push(data[i].phonenumber);
+        }
+        if (!result[index].Rooms.includes(data[i].RoomID)) {
+          result[index].Rooms.push(data[i].RoomID);
+        }
+      }
+    }
+    res.json(result);
+  });
+});
+
+router.get("/admin/recent_bookings", (req, res) => {
+  const sql = `SELECT FirstName, LastName, NIC, Email, phonenumber, CheckIn, CheckOut, roomdetails.RoomID, roomdetails.BookingRef  
+FROM booking
+LEFT JOIN customer ON customer.CustomerID = booking.CustomerID
+LEFT JOIN PhoneNumber ON customer.CustomerID = phonenumber.CustomerID
+LEFT JOIN roomdetails ON roomdetails.BookingRef = booking.BookingRef
+WHERE booking.Confirmed = 1 AND booking.CheckIn <= CURDATE();`;
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err);
+    }
+    // return res.json(data);
+    let temp = [];
+    let result = [];
+    for (let i = 0; i < data.length; i++) {
+      if (!temp.includes(data[i].NIC)) {
+        temp.push(data[i].NIC);
+        let obj = {
+          FirstName: data[i].FirstName,
+          LastName: data[i].LastName,
+          NIC: data[i].NIC,
+          Email: data[i].Email,
+          PhoneNumber: [data[i].phonenumber],
+          CheckIn: data[i].CheckIn,
+          CheckOut: data[i].CheckOut,
+          Rooms: [data[i].RoomID],
+          BookingRef: [data[i].BookingRef],
+        };
+        result.push(obj);
+      } else {
+        let index = temp.indexOf(data[i].NIC);
+        if (!result[index].PhoneNumber.includes(data[i].phonenumber)) {
+          result[index].PhoneNumber.push(data[i].phonenumber);
+        }
+        if (!result[index].Rooms.includes(data[i].RoomID)) {
+          result[index].Rooms.push(data[i].RoomID);
+        }
+      }
+    }
+    res.json(result);
+  });
+});
+
 module.exports = router;
