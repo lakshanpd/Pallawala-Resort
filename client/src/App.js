@@ -11,7 +11,11 @@ import "./App.css";
 import BookingForm from "./Components/BookingForm";
 import BookingPage from "./Pages/BookingPage";
 import AdminLogin from "./Admin/Auth/AdminLogin";
-import Dashboard from "./Admin/Dashboard/dashboard";
+import AdminButton from "./Admin/Components/adminButton";
+import Request_Handling from "./Admin/Dashboard/handle_requests";
+import ChangePrice from "./Admin/Dashboard/change_prices";
+import UpcomingBookings from "./Admin/Dashboard/upcoming";
+import RecentBookings from "./Admin/Dashboard/recent";
 
 function App() {
   return (
@@ -26,7 +30,27 @@ function App() {
           <Route path="/test" element={<BookingForm />} />
           <Route path="/reservation" element={<BookingPage />} />
           <Route path="/admin-login" element={<AdminLogin />} />
-          <Route path="/admin-dashboard" element={<Dashboard />} />
+          <Route
+            path="/admin-dashboard/request-handling"
+            element={<Request_Handling />}
+          />
+          <Route
+            path="/admin-testing"
+            element={<AdminButton text="Handle Requests" clicked={false} />}
+          />
+
+          <Route
+            path="/admin-dashboard/change-prices"
+            element={<ChangePrice />}
+          />
+          <Route
+            path="/admin-dashboard/upcoming-bookings"
+            element={<UpcomingBookings />}
+          />
+          <Route
+            path="/admin-dashboard/recent-bookings"
+            element={<RecentBookings />}
+          />
         </Routes>
       </Router>
     </>

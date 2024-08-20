@@ -1,0 +1,8 @@
+.four-buttons {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between; /* Distributes space between the buttons */
+  gap: 30px; /* Adds space between each button */
+}
