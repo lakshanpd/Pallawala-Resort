@@ -73,16 +73,43 @@ router.post("/submit_booking_form", async (req, res) => {
       checkin,
       checkout,
     } = req.body;
+    console.log(rooms);
+
+    const valueMapping = {
+      "cottage 1": 1,
+      "cottage 2": 2,
+      "cottage 3": 3,
+      "cottage 4": 4,
+      "cottage 5": 5,
+      "cottage 6": 6,
+      "room 1": 7,
+      "room 2": 8,
+      "room 3": 9,
+      "room 4": 10,
+    };
+    console.log("hello2");
+
+    // Function to transform the array
+    const transformArray = (originalArray) => {
+      return originalArray.map((item) => valueMapping[item] || item);
+    };
+
+    const rooms_ = transformArray(rooms);
+    console.log("hello1");
+
+    console.log(rooms_, rooms);
 
     console.log("Booking form submitted:", req.body);
+    console.log("hello3");
 
     // Convert checkin and checkout to correct date format
-    const checkinDate = new Date(checkin).toISOString().split("T")[0];
-    const checkoutDate = new Date(checkout).toISOString().split("T")[0];
+    const checkinDate = checkin;
+    const checkoutDate = checkout;
+    console.log(checkin);
 
     //check avaliability
 
-    for (let i = 0; i < rooms.length; i++) {
+    for (let i = 0; i < rooms_.length; i++) {
       const check_query = `
       SELECT CheckIn, CheckOut
       FROM booking
@@ -99,7 +126,7 @@ router.post("/submit_booking_form", async (req, res) => {
     `;
 
       const check_data = await dbQuery(check_query, [
-        parseInt(rooms[i]),
+        parseInt(rooms_[i]),
         checkinDate,
         checkoutDate,
         checkinDate,
@@ -127,7 +154,10 @@ router.post("/submit_booking_form", async (req, res) => {
     const customer_id_result = await dbQuery(customer_id_query);
     const customerID = customer_id_result[0].CustomerID;
 
-    // Insert booking details
+    // Insert booking details   //added
+    if (!customerID) {
+      return res.status(500).json({ error: "Failed to retrieve CustomerID" });
+    }
 
     const booking_query = `INSERT INTO Booking (CustomerID, CheckIn, CheckOut) VALUES (?, ?, ?)`;
 
@@ -143,12 +173,17 @@ router.post("/submit_booking_form", async (req, res) => {
     const booking_ref_result = await dbQuery(booking_ref_query);
     const bookingRef = booking_ref_result[0].BookingRef;
 
+    // Check if bookingRef was retrieved successfully   //added
+    if (!bookingRef) {
+      return res.status(500).json({ error: "Failed to retrieve BookingRef" });
+    }
+
     // Insert room details
 
     for (let i = 0; i < rooms.length; i++) {
       const room_query = `INSERT INTO RoomDetails (BookingRef, RoomID) VALUES (?, ?)`;
 
-      await dbQuery(room_query, [bookingRef, parseInt(rooms[i])]);
+      await dbQuery(room_query, [bookingRef, parseInt(rooms_[i])]);
     }
 
     console.log("Booking successful");

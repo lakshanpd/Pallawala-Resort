@@ -30,31 +30,50 @@ function BookingForm() {
   const rows = ["1", "2", "3", "1", "2", "3", "1", "2", "3", "4"];
   const columns = ["1", "1", "1", "2", "2", "2", "3", "3", "3", "3"];
 
+  const handleDateChange = (state, date) => {
+    if (date) {
+      // Set the time to 8:00 AM
+      date.setHours(13, 30, 0, 0);
+    }
+    state(date);
+  };
+
+  const handleRoomChange = (event) => {
+    const selectedRoom = event.target.value;
+    if (event.target.checked) {
+      // Add room to state if checked
+      setRooms([...rooms, selectedRoom]);
+    } else {
+      // Remove room from state if unchecked
+      setRooms(rooms.filter((room) => room !== selectedRoom));
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    setStartDate();
-    setEndDate();
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setRooms([]);
-    setMessage("");
-    setNic("");
-    setPhoneNo1("");
-    setPhoneNo2("");
+    const today = new Date();
 
+    // Validate date inputs
     if (startDate >= endDate) {
       setMessage("Check-out date should be after check-in date");
+      setTimeout(() => setMessage(""), 4000);
+      return;
+    } else if (startDate <= today) {
+      setMessage("Check-in date should be after today's date");
+      setTimeout(() => setMessage(""), 4000);
       return;
     }
 
+    // Validate room selection
     if (rooms.length === 0) {
       setMessage("Please select at least one room");
+      setTimeout(() => setMessage(""), 4000);
       return;
     }
 
     try {
+      // Send the form data to the backend
       const response = await fetch(
         "http://127.0.0.1:3001/api/submit_booking_form",
         {
@@ -70,24 +89,40 @@ function BookingForm() {
             phoneNo1,
             phoneNo2,
             rooms,
-            checkin: startDate.toISOString().split("T")[0],
-            checkout: endDate.toISOString().split("T")[0],
+            checkin: startDate.toISOString().slice(0, 19).replace("T", " "),
+            checkout: endDate.toISOString().slice(0, 19).replace("T", " "),
           }),
         }
       );
 
       const data = await response.json(); // Parse JSON response
+      console.log(firstName);
+      console.log(rooms);
 
       if (response.ok) {
         console.log("Success:", data.message); // Log success message from response
-        setMessage(data.message);
-        setTimeout(1000);
-        setMessage("");
+        setMessage("Booking successful");
+        setTimeout(() => setMessage(""), 4000);
+
+        // Reset form fields after successful submission
+        setStartDate("");
+        setEndDate("");
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setRooms([]);
+        setNic("");
+        setPhoneNo1("");
+        setPhoneNo2("");
       } else {
         console.log("Error:", data.message); // Log error message from response
+        setMessage(data.message);
+        setTimeout(() => setMessage(""), 4000);
       }
     } catch (error) {
       console.error("An error occurred:", error); // Log network or other errors
+      setMessage("An error occurred. Please try again.");
+      setTimeout(() => setMessage(""), 4000);
     }
   };
 
@@ -205,13 +240,10 @@ function BookingForm() {
                 <input
                   type="checkbox"
                   id={room}
-                  value={index + 1}
+                  value={room}
+                  checked={rooms.includes(room)}
                   onChange={(e) => {
-                    if (e.target.checked) {
-                      setRooms([...rooms, e.target.value]);
-                    } else {
-                      setRooms(rooms.filter((room) => room !== e.target.value));
-                    }
+                    handleRoomChange(e);
                   }}
                 />
                 <label htmlFor={room} style={{ paddingLeft: "10px" }}>
@@ -230,7 +262,7 @@ function BookingForm() {
             <br />
             <DatePicker
               selected={startDate}
-              onChange={(date) => setStartDate(date)}
+              onChange={(date) => handleDateChange(setStartDate, date)}
               id="checkin"
               required
             />
@@ -242,7 +274,7 @@ function BookingForm() {
             <br />
             <DatePicker
               selected={endDate}
-              onChange={(date) => setEndDate(date)}
+              onChange={(date) => handleDateChange(setEndDate, date)}
               id="checkout"
               required
             />
