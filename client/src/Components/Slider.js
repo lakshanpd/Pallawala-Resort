@@ -1,50 +1,36 @@
 import React, { useState, useEffect } from "react";
 import "./Slider.css";
-import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 
-function Slider() {
-  const imgs = [
-    "image1.jpg",
-    "image2.jpg",
-    "image3.jpg",
-    "image4.jpg",
-    "image5.jpg",
-  ];
-  const [count, setCount] = useState(0);
+const images = [
+  "/images/image1.jpg",
+  "/images/image2.jpg",
+  "/images/image3.jpg",
+  "/images/image4.jpg",
+  "/images/image5.jpg",
+];
 
-  const rightArrowClicked = () => {
-    setCount((prevCount) => (prevCount + 1) % imgs.length);
-  };
-
-  const leftArrowClicked = () => {
-    setCount((prevCount) => (prevCount - 1 + imgs.length) % imgs.length);
-  };
+const Slider = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCount((prevCount) => (prevCount + 1) % imgs.length);
-    }, 2500);
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 8000); // Change image every 3 seconds
 
-    return () => clearInterval(intervalId); // Clear the interval on component unmount
-  }, [imgs.length]); // Empty dependency array to run the effect only once on mount
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="slider-container">
-      <a href="#" className="myArrow left-arrow" onClick={leftArrowClicked}>
-        <div className="icon">{<SlArrowLeft size={40} />}</div>
-      </a>
-
-      <img
-        className="slider-image"
-        src={"/images/" + imgs[count]}
-        alt={`Slide ${count + 1}`}
-      />
-
-      <a href="#" className="myArrow right-arrow" onClick={rightArrowClicked}>
-        <div className="icon">{<SlArrowRight size={40} />}</div>
-      </a>
+      {images.map((image, index) => (
+        <div
+          key={index}
+          className={`slide ${index === currentIndex ? "active" : ""}`}
+          style={{ backgroundImage: `url(${image})` }}
+        />
+      ))}
     </div>
   );
-}
+};
 
 export default Slider;
