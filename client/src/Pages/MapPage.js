@@ -1,17 +1,17 @@
-import React from 'react'
-import Contacts from './Components/Contacts'
-import MyNavBar from './Components/MyNavBar';
-import Slider from './Components/Slider';
-import Map from './Components/Map';
-import GoogleMapButton from './Components/GoogleMapButton';
-import './MapPage.css'
-import Footer from './Components/Footer';
+import React from 'react';
+import Contacts from '../Components/Contacts';
+import NavBar from '../Components/NavBar';
+import Slider from '../Components/Slider';
+import Map from '../Components/Map';
+import GoogleMapButton from '../Components/GoogleMapButton';
+import './MapPage.css';
+import Footer from '../Components/Footer';
 
 function MapPage() {
   return (
     <div>
       <Contacts/>
-      <MyNavBar/>
+      <NavBar/>
       <Slider/>
 
     <div className='location-content'>

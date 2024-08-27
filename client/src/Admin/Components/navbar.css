@@ -1,0 +1,16 @@
+.admin-background {
+  background-color: #f9554b;
+  display: flex;
+  height: 60px;
+  align-items: center;
+  /* border-bottom: 2px inset rgb(204, 198, 198); */
+  box-shadow: 0 4px 10px rgba(246, 127, 127, 0.799);
+}
+
+.admin-background h1 {
+  color: rgb(255, 255, 255);
+  margin-left: 7%;
+  font-size: 30px;
+  font-family: "Irish Grover";
+  padding-top: 15px;
+}
