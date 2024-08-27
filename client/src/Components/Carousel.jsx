@@ -15,14 +15,17 @@ export const Carousel = ({ data }) => {
 
   return (
     <div className="carousel">
-      <BsArrowLeftCircleFill onClick={prevSlide} className="c-arrow c-arrow-left" />
+      <BsArrowLeftCircleFill
+        onClick={prevSlide}
+        className="c-arrow c-arrow-left"
+      />
       {data.map((item, idx) => {
         return (
           <img
             src={item.src}
             alt={item.alt}
             key={idx}
-            className={slide === idx ? "slide" : "slide slide-hidden"}
+            className={slide === idx ? "slide_" : "slide_ slide_-hidden"}
           />
         );
       })}
